@@ -4,22 +4,28 @@ using System.IO;
 
 public class MyDatabaseContext : DbContext
 {
-    public string DbPath { get; }
-
-    public MyDatabaseContext()
-    {
-        var folder = Environment.SpecialFolder.LocalApplicationData;
-        var path = Environment.GetFolderPath(folder);
-        DbPath = Path.Join(path, "blogging.db");
-    }
-
-    // Configure EF to use SQLite
-    protected override void OnConfiguring(DbContextOptionsBuilder options)
-        => options.UseSqlite($"Data Source={DbPath}");
-
-    // Declare tables for Student and Class (will be created later)
     public DbSet<Student> Students { get; set; }
     public DbSet<Class> Classes { get; set; }
-}
+    public DbSet<Teacher> Teachers { get; set; }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        // Use a fixed path that's easy to locate and verify
+        var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "school.db");
+        Console.WriteLine($"Database path: {dbPath}");
+        optionsBuilder.UseSqlite($"Data Source={dbPath}");
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        // One-to-One: Class has one Teacher, Teacher has one Class
+        modelBuilder.Entity<Class>()
+            .HasOne(c => c.Teacher)
+            .WithOne(t => t.Class)
+            .HasForeignKey<Class>(c => c.TeacherId)
+            .OnDelete(DeleteBehavior.SetNull); // Optional: avoids cascade delete
+
+        base.OnModelCreating(modelBuilder);
+    }
+}
 
