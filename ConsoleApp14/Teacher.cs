@@ -4,12 +4,12 @@
     public string FirstName { get; set; }
     public string LastName { get; set; }
 
-    // Navigation Property for one-to-one
-    // A teacher has one class (for a proper one-to-one relationship)
-    public Class Class { get; set; }
+    // Navigation Property for one-to-many
+    public ICollection<Class> Classes { get; set; } = new List<Class>();
 
     public override string ToString()
     {
-        return $"Teacher: {Id}, {FirstName} {LastName}";
+        return $"Teacher: {Id}, {FirstName} {LastName}, " +
+               $"Classes: {(Classes != null ? Classes.Count : 0)}";
     }
 }

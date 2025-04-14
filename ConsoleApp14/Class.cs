@@ -3,11 +3,14 @@
     public int ClassId { get; set; }
     public string Name { get; set; }
 
-    // Foreign Key
+    // Foreign Key for Teacher
     public int? TeacherId { get; set; }
 
-    // Navigation Property
+    // Navigation Property for Teacher
     public Teacher Teacher { get; set; }
+
+    // Many-to-many relationship with Student
+    public ICollection<Student> Students { get; set; } = new List<Student>();
 
     public override string ToString()
     {

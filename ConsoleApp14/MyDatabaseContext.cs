@@ -18,14 +18,18 @@ public class MyDatabaseContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // One-to-One: Class has one Teacher, Teacher has one Class
+        // One-to-Many: Teacher has many Classes, Class belongs to one Teacher
         modelBuilder.Entity<Class>()
             .HasOne(c => c.Teacher)
-            .WithOne(t => t.Class)
-            .HasForeignKey<Class>(c => c.TeacherId)
-            .OnDelete(DeleteBehavior.SetNull); // Optional: avoids cascade delete
+            .WithMany(t => t.Classes)
+            .HasForeignKey(c => c.TeacherId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        // Many-to-Many: Students can be in many Classes, Classes can have many Students
+        modelBuilder.Entity<Student>()
+            .HasMany(s => s.Classes)
+            .WithMany(c => c.Students);
 
         base.OnModelCreating(modelBuilder);
     }
 }
-

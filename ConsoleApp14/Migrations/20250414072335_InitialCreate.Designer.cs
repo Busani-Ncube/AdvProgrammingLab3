@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ConsoleApp14.Migrations
 {
     [DbContext(typeof(MyDatabaseContext))]
-    [Migration("20250411165439_UpdateTeacherClassRelation")]
-    partial class UpdateTeacherClassRelation
+    [Migration("20250414072335_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,8 +33,7 @@ namespace ConsoleApp14.Migrations
 
                     b.HasKey("ClassId");
 
-                    b.HasIndex("TeacherId")
-                        .IsUnique();
+                    b.HasIndex("TeacherId");
 
                     b.ToTable("Classes");
                 });
@@ -80,8 +79,8 @@ namespace ConsoleApp14.Migrations
             modelBuilder.Entity("Class", b =>
                 {
                     b.HasOne("Teacher", "Teacher")
-                        .WithOne("Class")
-                        .HasForeignKey("Class", "TeacherId")
+                        .WithMany("Classes")
+                        .HasForeignKey("TeacherId")
                         .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Teacher");
@@ -89,8 +88,7 @@ namespace ConsoleApp14.Migrations
 
             modelBuilder.Entity("Teacher", b =>
                 {
-                    b.Navigation("Class")
-                        .IsRequired();
+                    b.Navigation("Classes");
                 });
 #pragma warning restore 612, 618
         }

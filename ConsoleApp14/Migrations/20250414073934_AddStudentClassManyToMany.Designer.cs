@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ConsoleApp14.Migrations
 {
     [DbContext(typeof(MyDatabaseContext))]
-    [Migration("20250411163946_AddTeacherEntity")]
-    partial class AddTeacherEntity
+    [Migration("20250414073934_AddStudentClassManyToMany")]
+    partial class AddStudentClassManyToMany
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,10 +33,24 @@ namespace ConsoleApp14.Migrations
 
                     b.HasKey("ClassId");
 
-                    b.HasIndex("TeacherId")
-                        .IsUnique();
+                    b.HasIndex("TeacherId");
 
                     b.ToTable("Classes");
+                });
+
+            modelBuilder.Entity("ClassStudent", b =>
+                {
+                    b.Property<int>("ClassesClassId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("StudentsId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("ClassesClassId", "StudentsId");
+
+                    b.HasIndex("StudentsId");
+
+                    b.ToTable("ClassStudent");
                 });
 
             modelBuilder.Entity("Student", b =>
@@ -80,16 +94,31 @@ namespace ConsoleApp14.Migrations
             modelBuilder.Entity("Class", b =>
                 {
                     b.HasOne("Teacher", "Teacher")
-                        .WithOne("Class")
-                        .HasForeignKey("Class", "TeacherId");
+                        .WithMany("Classes")
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Teacher");
                 });
 
+            modelBuilder.Entity("ClassStudent", b =>
+                {
+                    b.HasOne("Class", null)
+                        .WithMany()
+                        .HasForeignKey("ClassesClassId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Student", null)
+                        .WithMany()
+                        .HasForeignKey("StudentsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Teacher", b =>
                 {
-                    b.Navigation("Class")
-                        .IsRequired();
+                    b.Navigation("Classes");
                 });
 #pragma warning restore 612, 618
         }
