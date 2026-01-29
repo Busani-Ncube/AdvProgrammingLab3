@@ -1,19 +1,45 @@
-# Advanced Programming Techniques Lab 3
+School Database Management System
 
-## Question 1
-Basic Entity Framework setup with Students and Classes.
+C# | Entity Framework Core | SQLite
 
-## Question 2
-One-to-One relationship between Class and Teacher.
+Project Overview
 
-## Question 3
-One-to-Many relationship where a Teacher can have multiple Classes.
+This project demonstrates the design and implementation of a relational database system for managing a school environment using C# and Entity Framework Core. It models real-world relationships between students, teachers, and classes while applying best practices in database structure and data handling.
 
-## Question 4
-Many-to-Many relationship between Students and Classes. Also includes:
-- One-to-many (Teacher → Classes)
-- Clean insert, retrieve, delete logic
-- Console output showing working relations
+🧩 Features & Implementation
+🧑‍🎓 Student–Class Relationship (Many-to-Many)
 
----
+Implemented a many-to-many relationship allowing multiple students to enroll in multiple classes.
+
+Demonstrates proper use of join tables and navigation properties in EF Core.
+
+👩‍🏫 Teacher–Class Relationship (One-to-Many)
+
+Designed a one-to-many relationship where a single teacher can teach multiple classes.
+
+Ensures referential integrity and correct foreign key usage.
+
+🏫 Class–Teacher Relationship (One-to-One)
+
+Implemented a one-to-one relationship linking each class to a specific teacher.
+
+Demonstrates advanced entity configuration using Entity Framework Core.
+
+🔧 CRUD Operations
+
+Developed clean logic for inserting, retrieving, and deleting records.
+
+Console-based testing confirms relationships and database interactions work as expected.
+
+🛠 Technologies Used
+
+C#
+
+Entity Framework Core
+
+SQLite
+
+.NET Console Application
+
+Structuring a backend system to reflect real-world data relationships
 
