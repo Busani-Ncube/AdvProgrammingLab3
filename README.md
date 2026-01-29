@@ -4,42 +4,18 @@ C# | Entity Framework Core | SQLite
 
 Project Overview
 
-This project demonstrates the design and implementation of a relational database system for managing a school environment using C# and Entity Framework Core. It models real-world relationships between students, teachers, and classes while applying best practices in database structure and data handling.
+Designed and implemented a relational database system for managing a school environment using C# and Entity Framework Core. The system models real-world relationships between students, teachers, and classes while demonstrating strong database design and backend development principles.
 
-🧩 Features & Implementation
-🧑‍🎓 Student–Class Relationship (Many-to-Many)
+Key Features
 
-Implemented a many-to-many relationship allowing multiple students to enroll in multiple classes.
+Many-to-Many (Students ↔ Classes): Implemented student enrollment across multiple classes using proper join tables and navigation properties.
 
-Demonstrates proper use of join tables and navigation properties in EF Core.
+One-to-Many (Teacher → Classes): Structured teacher assignments so one teacher can manage multiple classes with correct foreign key relationships.
 
-👩‍🏫 Teacher–Class Relationship (One-to-Many)
+One-to-One (Class ↔ Teacher): Configured a one-to-one relationship to demonstrate advanced entity mapping in EF Core.
 
-Designed a one-to-many relationship where a single teacher can teach multiple classes.
+CRUD Operations: Built clean logic for inserting, retrieving, and deleting records, with console output used to verify database interactions.
 
-Ensures referential integrity and correct foreign key usage.
+Technologies Used
 
-🏫 Class–Teacher Relationship (One-to-One)
-
-Implemented a one-to-one relationship linking each class to a specific teacher.
-
-Demonstrates advanced entity configuration using Entity Framework Core.
-
-🔧 CRUD Operations
-
-Developed clean logic for inserting, retrieving, and deleting records.
-
-Console-based testing confirms relationships and database interactions work as expected.
-
-🛠 Technologies Used
-
-C#
-
-Entity Framework Core
-
-SQLite
-
-.NET Console Application
-
-Structuring a backend system to reflect real-world data relationships
-
+C#, Entity Framework Core, SQLite, .NET Console Application
